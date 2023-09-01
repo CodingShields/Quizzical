@@ -31,11 +31,10 @@ getQuiz()
         return newQuiz
     }
     const questionElements = allQuestions.map(quiz =>(
-        <div>
+        
         <Question
             key={quiz.id}
-                value={quiz.value} />
-            </div>
+            value={quiz.value} />
     ))
 
     return (
