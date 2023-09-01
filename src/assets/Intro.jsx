@@ -1,11 +1,16 @@
 import React from "react"
 
-export default function Intro() {
+
+export default function Intro({toggleShow}) {
+
     return(
     <div className="intro-container">
-            <div className="title-container">
-                <h1 return > Quizzical </h1>
-            <button className="str-btn"> Start Quiz </button>
-        </div>
-    </div>)
+        <h1 className ="title"> Quizzical</h1>
+        <button className="start-btn" onClick={toggleShow}> Click Here To Begin </button>
+    </div>
+    )
 }
+
+
+
+
