@@ -1,15 +1,40 @@
 import { useState } from 'react'
-import React from "react"
-// import Intro from "./assets/Intro.jsx"
-import Quiz from "./assets/Quiz.jsx"
+import React from 'react';
+import Intro from "./assets/Intro";
+import Quiz from "./assets/Quiz";
 
+function App() {
+  const [showIntro, setShowIntro] = React.useState(true);
 
+  function toggleShow() {
+    setShowIntro(!showIntro);
+    // console.log("Toggle Show Clicked")
+  }
 
-export default function App() {
+  function IntroComponent() {
+    return (
+      <div>
+      <Intro />
+      </div>
+    )
+  }
+
+function QuizComponent() {
+    return (
+      <div>
+      <Quiz />
+      </div>
+    )
+  }
 
   return (
     <div>
-        <Quiz />
+         <div className="main-container">          
+          {showIntro ? <IntroComponent toggleShow={toggleShow} /> : <QuizComponent toggleShow={toggleShow}  /> }
+                
+        </div>
     </div>
-    )
+  )
 }
+export default App
+
