@@ -4,8 +4,6 @@ import { nanoid } from "nanoid"
 
 export default function Quiz() {
     const [allData, SetAllData] = useState([])
-
-    const [newQuiz, NewQuiz] = useState(false)
     
     useEffect(() => {
         async function getData() {
@@ -16,7 +14,7 @@ export default function Quiz() {
                 question: question.question, 
                 correct_answer: question.correct_answer,
                 all_answers: [question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5),
-                isHeld: false,
+                selectedAnswer:null,
                 
             
             }))
@@ -28,11 +26,7 @@ export default function Quiz() {
     }, [])
 
 function handleChange(id) {
-    SetAllData(oldData => oldData.map(data => {
-        return data.id === id ?
-             { ...data, isHeld: !data.isHeld }
-            : data
-    }))
+  
     console.log("clicked");
 }
 
@@ -51,12 +45,10 @@ function handleChange(id) {
                 {questionItem.all_answers.map((answerItem, answerIndex) => (
                         <div key={answerIndex} >
                         <button
-                            key={answerItem.id}
                             type="radio"
                             className="answer-btn"
-                            onClick={() => handleChange(questionItem.id, answerItem.id)}
-                            style={
-                                questionItem.isHeld
+                            onClick={() => handleChange(questionItem.id, answerItem)}
+                            style={ questionItem.selectedAnswer
                                     ? { backgroundColor: 'grey' }
                                     : { backgroundColor: 'white' }}
                         >{answerItem}</button>
