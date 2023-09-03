@@ -11,16 +11,16 @@ export default function Quiz() {
         "https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple"
       );
       const data = await res.json();
-      const updatedQuestions = data.results.map((question) => ({
+      const updatedQuestions = data.results.slice(0, 5).map((question) => ({
         id: nanoid(),
         question: question.question,
         correct_answer: question.correct_answer,
         all_answers: [question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5),
         selectedAnswer: null,
-        isCorrect: false, // Add a property to track if the user's answer is correct
-        isNotSelected: false,
-        isSelected:false,
-      }));
+        isCorrect: null,
+
+    }));
+
       SetAllData(updatedQuestions);
     }
     getData();
@@ -33,36 +33,44 @@ export default function Quiz() {
           // Toggle selection for the clicked answer
           const updatedSelectedAnswer =
             question.selectedAnswer === answerItem ? null : answerItem;
-
+        
+          
           const updatedQuestion = {
             ...question,
             selectedAnswer: updatedSelectedAnswer,
+
           };
           return updatedQuestion;
         }
+        
         return question;
       })
+      
     );
+    console.log(allData)
   }
 
   function checkAnswers() {
     SetAllData((oldData) =>
       oldData.map((question) => {
+        // console.log(question)
+
+        
         const isCorrectAnswer =
           question.selectedAnswer === question.correct_answer;
-
+        
+   
         return {
           ...question,
-            isCorrect: isCorrectAnswer,
-            isIncorrect:false,
+          isCorrect: isCorrectAnswer,
         };
       })
     );
+    console.log(allData);
   }
-
   return (
     <div className="quiz-container">
-      {allData.slice(0, 5).map((questionItem, questionIndex) => (
+      {allData.map((questionItem, questionIndex) => (
         <div key={questionIndex}>
           <p>{questionItem.question}</p>
           <div className="answer-container">
@@ -74,10 +82,17 @@ export default function Quiz() {
                   onClick={() => {
                     handleChange(questionItem.id, answerItem);
                   }}
-                  style={{
-                    backgroundColor:
-                      questionItem.selectedAnswer === answerItem ? "#fae588" : questionItem.isCorrect === true ? "#007f5f"  : "#ffffff", 
+
+                 style={{
+                    backgroundColor: 
+                      questionItem.isCorrect === null ? 
+                      (questionItem.selectedAnswer === answerItem ? "#fae588" : "#ffffff") :
+                      (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? "#a7c957" : "#d90429") : "#ffffff"),
                   }}
+
+
+
+
                 >
                   {answerItem}
                 </button>
