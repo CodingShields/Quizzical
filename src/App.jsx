@@ -7,9 +7,11 @@ function App() {
   const [showIntro, setShowIntro] = React.useState(true);
 
   function toggleShow() {
-    setShowIntro(!showIntro);
-    // console.log("Toggle Show Clicked")
+    setShowIntro(showIntro);
+    console.log("Toggle Show Clicked")
   }
+
+ 
 
   function IntroComponent() {
     return (
@@ -19,7 +21,10 @@ function App() {
     )
   }
 
-function QuizComponent() {
+  function QuizComponent() {
+    SetShowIntro()
+    console.log("clicked")
+
     return (
       <div>
       <Quiz />
