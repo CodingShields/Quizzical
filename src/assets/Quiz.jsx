@@ -4,11 +4,12 @@ import { nanoid } from "nanoid";
 
 export default function Quiz() {
   const [allData, SetAllData] = useState([]);
+  const [score, setScore] = useState(null)
 
   useEffect(() => {
     async function getData() {
       const res = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple"
+        "https://opentdb.com/api.php?amount=20&category=20&difficulty=medium&type=multiple"
       );
       const data = await res.json();
       const updatedQuestions = data.results.slice(0, 5).map((question) => ({
@@ -53,21 +54,28 @@ export default function Quiz() {
   function checkAnswers() {
     SetAllData((oldData) =>
       oldData.map((question) => {
-        // console.log(question)
 
-        
         const isCorrectAnswer =
           question.selectedAnswer === question.correct_answer;
-        
-   
         return {
           ...question,
           isCorrect: isCorrectAnswer,
         };
       })
+      
     );
+    getScore()
     console.log(allData);
   }
+
+  function getScore() {
+    const quizScore = allData.filter(
+      (item) => item.correct_answer === item.selectedAnswer
+    );
+    const count = quizScore.length;
+    setScore(`You scored ${count} out of 5`); // Set the score in the state
+  }
+
   return (
     <div className="quiz-container">
       {allData.map((questionItem, questionIndex) => (
@@ -81,18 +89,14 @@ export default function Quiz() {
                   className="answer-btn"
                   onClick={() => {
                     handleChange(questionItem.id, answerItem);
-                  }}
-
+                  }
+                }
                  style={{
                     backgroundColor: 
                       questionItem.isCorrect === null ? 
                       (questionItem.selectedAnswer === answerItem ? "#fae588" : "#ffffff") :
                       (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? "#a7c957" : "#d90429") : "#ffffff"),
                   }}
-
-
-
-
                 >
                   {answerItem}
                 </button>
@@ -101,9 +105,10 @@ export default function Quiz() {
           </div>
         </div>
       ))}
-      <button className="check-answer-btn" onClick={checkAnswers}>
-        Check Answers
-      </button>
+      <button className="check-answer-btn" onClick={checkAnswers}> Check Answers </button>
+      <div className="score-card">
+        <h2 className="score">{score !== null ? score : ""}</h2>
+      </div>
     </div>
   );
 }
