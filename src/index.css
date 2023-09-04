@@ -6,7 +6,7 @@
     align-items:center;
     columns: 1;
     width: 600px;
-    height: 550px;
+    height: 600px;
     border: 1px solid black; 
     margin-left: auto;
     margin-right: auto;
@@ -19,7 +19,7 @@
   align-items: center;
   align-content: center;
   width: 550px;
-  height: 550px;
+  height: 600px;
   flex-shrink: 0;
   margin: 50px auto;
   border: 2px solid black;
@@ -65,7 +65,7 @@
   justify-content: center;
   text-align: center;
   width: 600px;
-  height: 625px;
+  height: autopx;
   flex-shrink: 0;
   margin: 50px auto;
   border: 2px solid black;

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { encode } from "html-entities";
 import { nanoid } from "nanoid";
+import checkmark from "./checkmark.svg"
 
 export default function Quiz() {
   const [allData, SetAllData] = useState([]);
   const [score, setScore] = useState(null)
+  
 
   useEffect(() => {
     async function getData() {
       const res = await fetch(
-        "https://opentdb.com/api.php?amount=20&category=20&difficulty=medium&type=multiple"
+        "https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple"
       );
       const data = await res.json();
       const updatedQuestions = data.results.slice(0, 5).map((question) => ({
@@ -23,6 +25,7 @@ export default function Quiz() {
     }));
 
       SetAllData(updatedQuestions);
+      console.log(allData);
     }
     getData();
   }, []);
@@ -95,11 +98,9 @@ export default function Quiz() {
                     backgroundColor: 
                       questionItem.isCorrect === null ? 
                       (questionItem.selectedAnswer === answerItem ? "#fae588" : "#ffffff") :
-                      (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? "#a7c957" : "#d90429") : "#ffffff"),
-                  }}
-                >
-                  {answerItem}
-                </button>
+                      (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? "#a7c957"  : "#d90429") : "#ffffff"),
+                        }} > {answerItem} </button>
+                <img  className="check-icon"></img>
               </div>
             ))}
           </div>
