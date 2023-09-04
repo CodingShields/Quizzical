@@ -87,8 +87,8 @@ export default function Quiz() {
           <div className="answer-container">
             {questionItem.all_answers.map((answerItem, answerIndex) => (
               <div key={answerIndex}>
-                <button
-                  type="radio"
+                <div
+                  
                   className="answer-btn"
                   onClick={() => {
                     handleChange(questionItem.id, answerItem);
@@ -98,9 +98,8 @@ export default function Quiz() {
                     backgroundColor: 
                       questionItem.isCorrect === null ? 
                       (questionItem.selectedAnswer === answerItem ? "#fae588" : "#ffffff") :
-                      (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? "#a7c957"  : "#d90429") : "#ffffff"),
-                        }} > {answerItem} </button>
-                <img  className="check-icon"></img>
+                      (questionItem.selectedAnswer === answerItem ? (questionItem.isCorrect ? null  : "#d90429") : "#ffffff"),
+                        }} > {answerItem} </div>
               </div>
             ))}
           </div>

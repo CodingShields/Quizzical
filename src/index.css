@@ -70,7 +70,7 @@
   margin: 50px auto;
   border: 2px solid black;
   border-radius: 10px;
-  overflow: hidden;
+
 }
 
 .answer-container{
@@ -110,5 +110,9 @@
 }
 .check-answer-btn:hover {
   background-color: green;
+}
+.score-card{
+  height:auto;
+  width:auto;
 }
 
